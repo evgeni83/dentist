@@ -1,6 +1,7 @@
 .first-section {
   position: relative;
   height: 100vh;
+  overflow: hidden;
 
   &__bg {
     position: absolute;
@@ -73,7 +74,6 @@
 
     &__top {
       display: block;
-      color: $color__secondary;
     }
   }
 
