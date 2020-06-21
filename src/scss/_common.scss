@@ -1,5 +1,27 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
 body {
   font-family: Gilroy, sans-serif;
+  min-width: 320px;
+  color: $color__text-main;
+  font-size: 18px;
+}
+
+.container {
+  max-width: 1170px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
 }
 
 @media (max-width: 1199px) {

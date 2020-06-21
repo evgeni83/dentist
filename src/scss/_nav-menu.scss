@@ -1,0 +1,28 @@
+.menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+
+  &__link {
+    transition: color 0.2s;
+
+    &::after {
+      content: '';
+      display: block;
+      height: 1px;
+      width: 100%;
+      transform: scaleX(0);
+      transition: transform 0.2s;
+      background-color: $color__secondary;
+    }
+
+    &:hover {
+      color: $color__secondary;
+
+      &::after {
+        transform: scaleX(1);
+      }
+    }
+  }
+}
