@@ -10,6 +10,14 @@ body {
   min-width: 320px;
   color: $color__text-main;
   font-size: 18px;
+
+  &.no-scroll {
+    overflow: hidden;
+  }
+}
+
+.site {
+  overflow: hidden;
 }
 
 .container {
