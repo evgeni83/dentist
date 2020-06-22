@@ -1,104 +1,128 @@
 *,
 *::before,
 *::after {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 html,
 body {
-  font-family: Gilroy, sans-serif;
-  min-width: 320px;
-  color: $color__text-main;
-  font-size: 18px;
+    font-family: Gilroy, sans-serif;
+    min-width: 320px;
+    color: $color__text-main;
+    font-size: 18px;
 
-  &.no-scroll {
-    overflow: hidden;
-  }
+    &.no-scroll {
+        overflow: hidden;
+    }
 }
 
 a {
-  color: $color__text-main;
+    color: $color__text-main;
 }
 
 .site {
-  overflow: hidden;
+    overflow: hidden;
 }
 
 .container {
-  max-width: 1170px;
-  margin: 0 auto;
-  padding: 0 15px;
+    max-width: 1170px;
+    margin: 0 auto;
+    padding: 0 15px;
 }
 
 .main-title {
-  margin: 0;
-  font-weight: 700;
-  font-size: 55px;
+    margin: 0;
+    font-weight: 700;
+    font-size: 55px;
 }
 
 .section-title {
-  margin: 0;
-  font-weight: 600;
-  font-size: 30px;
+    margin: 0;
+    font-weight: 600;
+    font-size: 30px;
+}
+
+.bg-title {
+    position: absolute;
+    font-family: Gilroy, sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 150px;
+
+    &--light {
+        color: rgba(105, 186, 220, 0.07);
+    }
+
+    &--dark {
+        color: rgba(255, 255, 255, 0.21);
+    }
+}
+
+.bg-img {
+    position: absolute;
 }
 
 .text {
-  &--secondary {
-    color: $color__secondary;
-  }
+    &--secondary {
+        color: $color__secondary;
+    }
 }
 
 .img {
-  height: 100%;
-  width: 100%;
-  object-fit: contain;
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
 }
 
 .btn {
-  display: block;
-  border: none;
-  outline: none;
-  padding: 0;
-  margin: 0;
-  background-color: transparent;
-  cursor: pointer;
-  font-family: Poppins, sans-serif;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 18px;
+    display: block;
+    border: none;
+    outline: none;
+    padding: 0;
+    margin: 0;
+    background-color: transparent;
+    cursor: pointer;
+    font-family: Poppins, sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
 }
 
 @media (max-width: 1199px) {
 }
 
 @media (max-width: 991px) {
-  .container {
-    padding: 0 40px;
-  }
+    .container {
+        padding: 0 40px;
+    }
 
-  .main-title {
-    font-size: 40px;
-  }
+    .main-title {
+        font-size: 40px;
+    }
 }
 
 @media (max-width: 767px) {
 }
 
 @media (max-width: 575px) {
-  .container {
-    padding: 0 20px;
-  }
+    .container {
+        padding: 0 20px;
+    }
 
-  .main {
-    margin-top: -105px;
-  }
+    .main {
+        margin-top: -105px;
+    }
+
+    .bg-title {
+        font-size: 75px;
+    }
 }
 
 @media (max-width: 480px) {
 }
 
 @media (max-width: 320px) {
-  .container {
-    padding: 0 10px;
-  }
+    .container {
+        padding: 0 10px;
+    }
 }
