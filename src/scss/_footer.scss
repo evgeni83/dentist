@@ -1,0 +1,117 @@
+.footer {
+    background-color: $color__footer-bg;
+
+    .container {
+        position: relative;
+        padding-top: 60px;
+        padding-bottom: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .logo {
+        &__img {
+            filter: brightness(300%);
+        }
+
+        &__text {
+            color: $color__white;
+        }
+    }
+
+    .nav-menu--footer {
+        .menu {
+            &__item {
+                margin-right: 30px;
+
+                &:last-child {
+                    margin-right: 0;
+                }
+            }
+
+            &__link {
+                color: $color__white;
+            }
+        }
+    }
+
+    .call {
+        color: $color__white;
+
+        &__number {
+            background: url("../images/icons/phone-white.svg") no-repeat left center / 28px 26px;
+        }
+
+        &:hover .call__number {
+            color: $color__white;
+        }
+    }
+}
+
+@media (max-width: 991px) {
+    .footer {
+        .logo {
+            position: static;
+            transform: none;
+        }
+
+        .contacts {
+            order: unset;
+            flex: 0 1 auto;
+        }
+    }
+}
+
+@media (max-width: 767px) {
+    .footer {
+        .container {
+            align-items: flex-start;
+        }
+
+        .nav-menu--footer {
+            .menu {
+                flex-direction: column;
+
+                &__item {
+                    margin-right: 0;
+                    margin-bottom: 10px;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 575px) {
+    .footer {
+        .container {
+            flex-wrap: wrap;
+        }
+
+        .contacts {
+            display: block;
+            flex: 1 0 100%;
+
+            .call {
+                flex-direction: row;
+                justify-content: flex-start;
+                margin-top: -40px;
+            }
+        }
+    }
+}
+
+
+@media (max-width: 480px) {
+        .footer {
+            .contacts {
+                .call {
+                    margin-top: -40px;
+
+                    &__number {
+                        font-size: 16px;
+                    }
+                }
+            }
+        }
+}
