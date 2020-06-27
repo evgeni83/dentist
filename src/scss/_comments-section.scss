@@ -1,0 +1,39 @@
+.comments-section {
+
+    &__container {
+        position: relative;
+        padding-top: 330px;
+    }
+
+    .bg-title--comments-section {
+        top: 190px;
+        left: 0;
+    }
+}
+
+@media (max-width: 991px) {
+    .comments-section {
+        &__container {
+            padding-top: 200px;
+        }
+
+        .bg-title--comments-section {
+            top: 60px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .section-title {
+            text-align: center;
+        }
+    }
+}
+
+@media (max-width: 575px) {
+    .comments-section {
+        &__container {
+            padding-top: 120px;
+        }
+    }
+}
+
