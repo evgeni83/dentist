@@ -66,6 +66,19 @@ a {
     &--secondary {
         color: $color__secondary;
     }
+    
+    &--white {
+        color: $color__white;
+    }
+    
+    &--orange {
+        color: $color__orange;
+    }
+}
+
+.asterisk:after {
+    content: " *";
+    color: $color__orange;
 }
 
 .img {
@@ -86,6 +99,7 @@ a {
     font-style: normal;
     font-weight: 600;
     font-size: 18px;
+    line-height: 1.15;
 }
 
 @media (max-width: 1199px) {

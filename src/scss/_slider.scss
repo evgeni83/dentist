@@ -3,8 +3,9 @@
   min-width: 0;
 }
 /* Слайдер запущен */
-// .slick-slider.slick-initialized {
-// }
+ .slick-slider.slick-initialized {
+   position: relative;
+ }
 /* Слайдер с точками */
 // .slick-slider.slick-dotted {
 // }
@@ -35,17 +36,69 @@
 // }
 
 /* Стрелка */
-// .slick-arrow {
-// }
+ .slick-arrow {
+     position: absolute;
+     top: 50%;
+     transform: translateY(-50%);
+     z-index: 10;
+     border: none;
+     background-color: transparent;
+     width: 36px;
+     height: 36px;
+     font-size: 0;
+     color: transparent;
+     cursor: pointer;
+
+     &:before,
+     &:after {
+         content: '';
+         position: absolute;
+         z-index: 10;
+         width: 30px;
+         height: 3px;
+         background-color: $color__white;
+         top: 50%;
+         border-radius: 5px;
+     }
+ }
 /* Стрелка влево */
-// .slick-arrow.slick-prev {
-// }
+ .slick-arrow.slick-prev {
+     left: -30px;
+
+     &:before,
+     &:after {
+         left: 0;
+         transform-origin: 2% center;
+     }
+
+     &:before {
+         transform: rotate(-45deg);
+     }
+     &:after {
+         transform: rotate(45deg);
+     }
+ }
 /* Стрелка вправо */
-// .slick-arrow.slick-next {
-// }
+ .slick-arrow.slick-next {
+     right: -30px;
+
+     &:before,
+     &:after {
+         right: 0;
+         transform-origin: 98% center;
+     }
+
+     &:before {
+         transform: rotate(45deg);
+     }
+     &:after {
+         transform: rotate(-45deg);
+     }
+ }
 /* Стрелка не активная */
-// .slick-arrow.slick-disabled {
-// }
+ .slick-arrow.slick-disabled {
+     opacity: 0.2;
+ }
 
 /* Точки (булиты) */
 // .slick-dots {
@@ -57,3 +110,31 @@
 /* Активная точка */
 // .slick-dots li.slick-active button {
 // }
+
+@media (max-width: 1199px) {
+    .slick-slider.slick-initialized {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 900px) {
+    .slick-slider.slick-initialized {
+        max-width: 400px;
+    }
+}
+
+@media (max-width: 500px) {
+    .slick-slider.slick-initialized {
+        max-width: 100%;
+        margin: 0 20px;
+    }
+
+    .slick-arrow.slick-prev {
+        left: -20px;
+    }
+
+    .slick-arrow.slick-next {
+        right: -20px;
+    }
+}
