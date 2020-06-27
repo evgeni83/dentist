@@ -3,11 +3,20 @@
     &__container {
         position: relative;
         padding-top: 330px;
+        padding-bottom: 240px;
     }
 
     .bg-title--comments-section {
         top: 190px;
         left: 0;
+    }
+
+    .bg-img--comments-section {
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 330px;
+        height: 330px;
     }
 }
 
@@ -21,6 +30,16 @@
             top: 60px;
             width: 100%;
             text-align: center;
+        }
+
+        .bg-img--comments-section {
+            right: auto;
+            top: auto;
+            transform: none;
+            left: -40px;
+            bottom: 100px;
+            width: 260px;
+            height: 260px;
         }
 
         .section-title {
