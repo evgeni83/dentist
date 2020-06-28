@@ -28,10 +28,38 @@ jQuery(function ($) {
 
     $(".menu__link").on("click", event => {
         event.preventDefault();
-        console.log($(event.currentTarget));
+        $("html, body").removeClass("no-scroll");
+        $(".nav-menu--header, .burger-btn__item").removeClass("active");
         const targetElementId = $(event.currentTarget).attr("href");
-        console.log(targetElementId);
         const offsetFromTopToTargetElement = $(targetElementId).offset().top;
-        $("html").animate({ scrollTop: offsetFromTopToTargetElement }, 1000);
+        $("html").animate({scrollTop: offsetFromTopToTargetElement}, 1000);
+    });
+
+    if ($(window).width() > 991) {
+        const firstScreenImage = $(".first-section__content .img-content");
+        const windowHalfWidth = $(window).width() / 2;
+        const windowHalfHeight = $(window).height() / 2;
+        $(document).on("mousemove", event => {
+            let x = event.clientX - windowHalfWidth;
+            let y = event.clientY - windowHalfHeight;
+            firstScreenImage.css({
+                "transform": `translate(${ x / -50 }px, ${ y / -50 }px)`
+            });
+        });
+    }
+
+    $(window).on("scroll", () => {
+        if ($(this).scrollTop() > 100) {
+            $(".scroll-to-top").addClass("active");
+        } else {
+            $(".scroll-to-top").removeClass("active");
+        }
+    });
+
+    $(".scroll-to-top").on("click", event => {
+        event.preventDefault();
+        $("html").animate({
+            scrollTop: 0
+        }, 1000);
     });
 });

@@ -122,9 +122,16 @@
         &__btn {
             width: 100%;
             height: 60px;
-            background: $color__secondary;
+            background-color: $color__secondary;
+            border: 2px solid $color__secondary;
             color: $color__white;
             border-radius: 35px;
+            transition: background-color 0.2s, color 0.2s;
+
+            &:hover {
+                background-color: $color__white;
+                color: $color__secondary;
+            }
         }
     }
 
