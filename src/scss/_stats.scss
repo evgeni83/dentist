@@ -16,8 +16,8 @@
     flex: 1 0 150px;
 
     &--center {
-      border-left: 2px solid #BEB4B4;
-      border-right: 2px solid #BEB4B4;
+      border-left: 2px solid $color__border;
+      border-right: 2px solid $color__border;
     }
   }
 
@@ -59,7 +59,7 @@
           transform: translateX(-50%);
           height: 2px;
           width: 120px;
-          background-color: #BEB4B4;
+          background-color: $color__border;
         }
       }
   
