@@ -21,6 +21,7 @@
     "gulp-plumber": "^1.2.1",
     "gulp-postcss": "^8.0.0",
     "gulp-sass": "^4.1.0",
+    "gulp-sourcemaps": "^2.6.5",
     "gulp-terser": "^1.2.0",
     "gulp-ttf2eot": "^1.1.2",
     "gulp-ttf2woff": "^1.1.1",

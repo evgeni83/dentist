@@ -7,6 +7,7 @@ const gulp = require("gulp"),
     ttf2woff2 = require("gulp-ttf2woff2"),
     plumber = require("gulp-plumber"),
     babel = require("gulp-babel"),
+    sourcemaps = require("gulp-sourcemaps"),
     sass = require("gulp-sass"),
     postcss = require("gulp-postcss"),
     autoprefixer = require("autoprefixer"),
@@ -15,19 +16,54 @@ const gulp = require("gulp"),
     browserSync = require("browser-sync").create();
 
 const conn = ftp.create({
-    host: "localhost",
+    host: "vh296.timeweb.ru",
     port: 21,
-    user: "ftp",
-    password: "ftp",
-    parallel: 10,
+    user: "ci42086",
+    password: "VhcU1XN72xhr",
+    parallel: 1,
     log: gutil.log,
 });
-const remoteLocation = "/dentist.loc";
-const localFiles = ["./dist/**"];
+const remoteLocation = "/dental/public_html";
+const localFiles = [
+    './dist/fonts/**',
+    './dist/css/**',
+    './dist/js/**',
+    './dist/images/**',
+    './dist/*.html'
+];
 
 const deployTask = () => {
     return gulp
         .src(localFiles, { base: "./dist", buffer: false })
+        // .pipe(conn.newer(remoteLocation))
+        .pipe(conn.dest(remoteLocation));
+        // .pipe(conn.clean(remoteLocation + '/**', "./dist"));
+};
+
+
+const updateRemoteJsFiles = () => {
+    return gulp
+        .src(
+            [
+                "./dist/js/*.js",
+                "!./dist/js/vendor/**/*.js",
+            ],
+            { base: "./dist", buffer: false }
+        )
+        .pipe(conn.newer(remoteLocation))
+        .pipe(conn.dest(remoteLocation));
+};
+
+const updateRemoteCssFiles = () => {
+    return gulp
+        .src("./dist/css/*.css", { base: "./dist", buffer: false })
+        .pipe(conn.newer(remoteLocation))
+        .pipe(conn.dest(remoteLocation));
+};
+
+const updateRemoteHtmlFiles = () => {
+    return gulp
+        .src("./dist/*.html", { base: "./dist", buffer: false })
         .pipe(conn.newer(remoteLocation))
         .pipe(conn.dest(remoteLocation));
 };
@@ -82,85 +118,70 @@ const jsVendorTask = () => {
 
 const jsTask = () => {
     return gulp
-        .src("./src/js/script.js", {sourcemaps: true})
+        .src("./src/js/script.js")
         .pipe(plumber())
+        .pipe(sourcemaps.init())
         .pipe(
             babel({
                 presets: ["@babel/env"],
             })
         )
+        .pipe(sourcemaps.write())
         .pipe(plumber.stop())
-        .pipe(gulp.dest("./dist/js", {sourcemaps: true}));
+        .pipe(gulp.dest("./dist/js"));
 };
 
 const cssTask = () => {
     return gulp
-        .src("./src/scss/style.scss", {sourcemaps: true})
+        .src("./src/scss/style.scss")
         .pipe(plumber())
+        .pipe(sourcemaps.init())
         .pipe(sass({outputStyle: "expanded"}))
         .pipe(postcss([autoprefixer({cascade: false})]))
+        .pipe(sourcemaps.write())
         .pipe(plumber.stop())
-        .pipe(gulp.dest("./dist/css", {sourcemaps: true}))
-        .pipe(browserSync.stream());
+        .pipe(gulp.dest("./dist/css"));
 };
 
-const updateRemoteJsFiles = () => {
-    return gulp
-        .src(
-            [
-                "./dist/js/*.js",
-                "!./dist/js/vendor.js",
-            ],
-            { base: "./dist", buffer: false }
-        )
-        .pipe(conn.newer(remoteLocation))
-        .pipe(conn.dest(remoteLocation));
-};
-
-const updateRemoteCssFiles = () => {
-    return gulp
-        .src("./dist/css/*.css", { base: "./dist", buffer: false })
-        .pipe(conn.newer(remoteLocation))
-        .pipe(conn.dest(remoteLocation));
-};
-
-const updateRemoteHtmlFiles = () => {
-    return gulp
-        .src("./dist/*.html", { base: "./dist", buffer: false })
-        .pipe(conn.newer(remoteLocation))
-        .pipe(conn.dest(remoteLocation));
-};
+const reload = done => {
+    browserSync.reload();
+    done();
+}
 
 const watcherTask = () => {
     browserSync.init({
         // server: "./dist",
-        proxy: 'http://dentist.loc/',
+        proxy: 'http://ci42086.tmweb.ru/',
         notify: false,
         open: true,
     });
 
     gulp
-        .watch("./src/fonts/**/*", gulp.series(fontsTask))
-        .on("change", browserSync.reload);
+        .watch("./src/fonts/**/*", gulp.series(fontsTask));
 
     gulp
-        .watch("./src/images/**/*", gulp.series(imgTask))
-        .on("change", browserSync.reload);
+        .watch("./src/images/**/*", gulp.series(imgTask));
 
-    gulp.watch("./src/scss/**/*.scss", gulp.series(cssTask, updateRemoteCssFiles));
-
-    gulp
-        .watch("./src/js/script.js", gulp.series(jsTask, updateRemoteJsFiles))
-        .on("change", browserSync.reload);
+    gulp.watch("./src/scss/**/*.scss", gulp.series(cssTask, updateRemoteCssFiles, reload));
 
     gulp
-        .watch("./src/*.html", gulp.series(copyHtml, updateRemoteHtmlFiles))
-        .on("change", browserSync.reload);
+        .watch("./src/js/script.js", gulp.series(jsTask, updateRemoteJsFiles, reload));
+        // .on("change", browserSync.reload);
+
+    gulp
+        .watch("./src/*.html", gulp.series(copyHtml, updateRemoteHtmlFiles, reload));
 };
 
 exports.default = gulp.series(
     cleanTask,
-    gulp.parallel(copyHtml, fontsTask, jsVendorTask, imgTask, cssTask, jsTask),
+    gulp.parallel(
+        copyHtml,
+        fontsTask,
+        jsVendorTask,
+        imgTask,
+        cssTask,
+        jsTask
+    ),
     deployTask,
     watcherTask
 );

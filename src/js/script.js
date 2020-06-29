@@ -112,4 +112,9 @@ jQuery(function ($) {
         htmlBodyElements.removeClass("no-scroll");
         removeNoScrollJump();
     });
+
+    $("#user-phone").inputmask({
+        mask: '+7 (999) 999-99-99',
+        showMaskOnHover: false,
+    });
 });
