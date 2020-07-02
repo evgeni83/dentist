@@ -8,8 +8,11 @@ jQuery(function ($) {
         menuLinks = $(".menu__link"),
         scrollToTopButton = $(".scroll-to-top"),
         firstScreenImage = $(".first-section__content .img-content"),
-        openPopupButtons = $(".first-section__btn, #send-request, .slide__btn"),
+        openRequestPopupButtons = $(".first-section__btn, #send-request, .about-section__btn, .slide__btn"),
+        openCommentPopupButtons = $(".comments-section__btn"),
         closePopupButton = $(".popup__close-btn"),
+        requestPopup = $(".request-popup"),
+        commentPopup = $(".comment-popup"),
         popupWrapper = $(".popup-wrapper"),
         strongContent = $(".strong-content"),
         viewportWidth = document.documentElement.clientWidth,
@@ -93,9 +96,16 @@ jQuery(function ($) {
         }, 1000);
     });
 
-    openPopupButtons.on("click", event => {
+    openRequestPopupButtons.on("click", event => {
         event.preventDefault();
-        popupWrapper.removeClass("hidden");
+        requestPopup.removeClass("hidden");
+        htmlBodyElements.addClass("no-scroll");
+        removeNoScrollJump();
+    });
+
+    openCommentPopupButtons.on("click", event => {
+        event.preventDefault();
+        commentPopup.removeClass("hidden");
         htmlBodyElements.addClass("no-scroll");
         removeNoScrollJump();
     });

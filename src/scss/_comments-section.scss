@@ -19,6 +19,34 @@
         height: 330px;
     }
 
+    &__btn {
+        position: relative;
+        width: 275px;
+        height: 60px;
+        margin-top: 36px;
+        background-color: $color__white;
+        border: 2px solid $color__secondary;
+        border-radius: 35px;
+        color: $color__secondary;
+        transition: all 0.2s;
+
+        &::after {
+            content: "\2192";
+            margin-left: 20px;
+            font-size: 30px;
+            line-height: 0;
+            font-weight: 900;
+        }
+
+        @media (min-width: 768px) {
+            &:hover {
+                background-color: $color__secondary;
+                border-color: $color__secondary;
+                color: $color__white;
+            }
+        }
+    }
+
     .slick-slide {
         padding: 25px;
         outline: none;
