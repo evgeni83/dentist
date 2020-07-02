@@ -8,9 +8,10 @@ jQuery(function ($) {
         menuLinks = $(".menu__link"),
         scrollToTopButton = $(".scroll-to-top"),
         firstScreenImage = $(".first-section__content .img-content"),
-        openPopupButtons = $(".first-section__btn, #send-request, .about-section__btn, .slide__btn"),
+        openPopupButtons = $(".first-section__btn, #send-request, .slide__btn"),
         closePopupButton = $(".popup__close-btn"),
         popupWrapper = $(".popup-wrapper"),
+        strongContent = $(".strong-content"),
         viewportWidth = document.documentElement.clientWidth,
         browserWidth = window.innerWidth,
         diff = (browserWidth - viewportWidth),
@@ -117,4 +118,45 @@ jQuery(function ($) {
         mask: '+7 (999) 999-99-99',
         showMaskOnHover: false,
     });
+
+
+    $(".wpmtst-testimonial-inner").prepend("<div class='top-row'></div>");
+
+    var topRow = $(".top-row");
+    topRow.append("<div class='top-row--right'></div>");
+
+    topRow.each(function (index, element) {
+        var img = $(element).siblings(".wpmtst-testimonial-content").find($(".wpmtst-testimonial-image"));
+        var title = $(element).siblings(".wpmtst-testimonial-heading");
+        var rating = $(element).siblings(".wpmtst-testimonial-field").find(".strong-rating-wrapper");
+        $(element).prepend($(img));
+        $(element).children(".top-row--right").prepend($(title));
+        $(element).children(".top-row--right").append($(rating));
+
+        //strong-rating-wrapper
+    })
+
+    strongContent.slick({
+        infinite: false,
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        responsive: [
+            {
+                breakpoint: 1200,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 1
+                }
+            },
+            {
+                breakpoint: 900,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                }
+            }
+        ]
+    })
+
+
 });

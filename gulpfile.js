@@ -13,63 +13,72 @@ const gulp = require("gulp"),
     autoprefixer = require("autoprefixer"),
     gutil = require("gutil"),
     ftp = require("vinyl-ftp"),
+    rsync = require('gulp-rsync'),
     browserSync = require("browser-sync").create();
 
-const conn = ftp.create({
-    host: "vh296.timeweb.ru",
-    port: 21,
-    user: "ci42086",
-    password: "VhcU1XN72xhr",
-    parallel: 1,
-    log: gutil.log,
-});
-const remoteLocation = "/dental/public_html";
-const localFiles = [
-    './dist/fonts/**',
-    './dist/css/**',
-    './dist/js/**',
-    './dist/images/**',
-    './dist/*.html'
-];
+// const conn = ftp.create({
+//     host: "vh296.timeweb.ru",
+//     port: 21,
+//     user: "ci42086",
+//     password: "VhcU1XN72xhr",
+//     parallel: 1,
+//     log: gutil.log,
+// });
+// const remoteLocation = "/dental/public_html";
+// const localFiles = [
+//     './dist/fonts/**',
+//     './dist/css/**',
+//     './dist/js/**',
+//     './dist/images/**',
+//     './dist/*.html'
+// ];
 
-const deployTask = () => {
-    return gulp
-        .src(localFiles, { base: "./dist", buffer: false })
-        // .pipe(conn.newer(remoteLocation))
-        .pipe(conn.dest(remoteLocation));
-        // .pipe(conn.clean(remoteLocation + '/**', "./dist"));
-};
+// const deployTask = () => {
+//     gulp
+//         .src(localFiles, { base: "./dist", buffer: false })
+//         .pipe(conn.newer(remoteLocation))
+//         .pipe(conn.dest(remoteLocation));
+//
+//     return conn.clean('/dental/public_html/**/*', "./dist/")
+// };
 
 
-const updateRemoteJsFiles = () => {
-    return gulp
-        .src(
-            [
-                "./dist/js/*.js",
-                "!./dist/js/vendor/**/*.js",
-            ],
-            { base: "./dist", buffer: false }
-        )
-        .pipe(conn.newer(remoteLocation))
-        .pipe(conn.dest(remoteLocation));
-};
+// const updateRemoteJsFiles = () => {
+//     return gulp
+//         .src(
+//             [
+//                 "./dist/js/*.js",
+//                 "!./dist/js/vendor/**/*.js",
+//             ],
+//             { base: "./dist", buffer: false }
+//         )
+//         .pipe(conn.newer(remoteLocation))
+//         .pipe(conn.dest(remoteLocation));
+// };
 
-const updateRemoteCssFiles = () => {
-    return gulp
-        .src("./dist/css/*.css", { base: "./dist", buffer: false })
-        .pipe(conn.newer(remoteLocation))
-        .pipe(conn.dest(remoteLocation));
-};
+// const updateRemoteCssFiles = () => {
+//     return gulp
+//         .src("./dist/css/*.css", { base: "./dist", buffer: false })
+//         .pipe(conn.newer(remoteLocation))
+//         .pipe(conn.dest(remoteLocation));
+// };
 
-const updateRemoteHtmlFiles = () => {
-    return gulp
-        .src("./dist/*.html", { base: "./dist", buffer: false })
-        .pipe(conn.newer(remoteLocation))
-        .pipe(conn.dest(remoteLocation));
-};
+// const updateRemoteHtmlFiles = () => {
+//     conn.clean('/dental/public_html/**/*', "./dist/");
+//
+//     return gulp
+//         .src("./dist/*.html", { base: "./dist", buffer: false })
+//         .pipe(conn.newer(remoteLocation))
+//         .pipe(conn.dest(remoteLocation));
+// };
 
 const cleanTask = (cb) => {
-    return del("./dist").then(() => {
+    const globs = [
+        // "./dist",
+        "C:/Program Files/Open_server/OSPanel/domains/yakimov-dental.ru/wp-content/themes/dental/assets",
+        "C:/Program Files/Open_server/OSPanel/domains/yakimov-dental.ru/wp-content/themes/dental/style.css"
+    ];
+    return del(globs, {force: true}).then(() => {
         cb();
     });
 };
@@ -90,30 +99,31 @@ const imgTask = () => {
                 }),
             ])
         )
-        .pipe(gulp.dest("./dist/images"));
+        .pipe(gulp.dest("./dist/images"))
+        .pipe(gulp.dest("C:/Program Files/Open_server/OSPanel/domains/yakimov-dental.ru/wp-content/themes/dental/assets/images"));
 };
-
-const copyHtml = () => {
-    return gulp.src("./src/*.html").pipe(gulp.dest("./dist"));
-};
+//
+// const copyHtml = () => {
+//     return gulp.src("./src/*.html").pipe(gulp.dest("./dist"));
+// };
 
 const fontsTask = () => {
     gulp
         .src("./src/fonts/**/*.ttf")
         .pipe(ttf2woff())
-        .pipe(gulp.dest("./dist/fonts"));
+        .pipe(gulp.dest("C:/Program Files/Open_server/OSPanel/domains/yakimov-dental.ru/wp-content/themes/dental/assets/fonts"));
     gulp
         .src("./src/fonts/**/*.ttf")
         .pipe(ttf2woff2())
-        .pipe(gulp.dest("./dist/fonts"));
+        .pipe(gulp.dest("C:/Program Files/Open_server/OSPanel/domains/yakimov-dental.ru/wp-content/themes/dental/assets/fonts"));
     return gulp
         .src("./src/fonts/**/*.ttf")
         .pipe(ttf2eot({clone: true}))
-        .pipe(gulp.dest("./dist/fonts"));
+        .pipe(gulp.dest("C:/Program Files/Open_server/OSPanel/domains/yakimov-dental.ru/wp-content/themes/dental/assets/fonts"));
 };
 
 const jsVendorTask = () => {
-    return gulp.src("./src/js/vendor/*.js").pipe(gulp.dest("./dist/js/vendor"));
+    return gulp.src("./src/js/vendor/*.js").pipe(gulp.dest("C:/Program Files/Open_server/OSPanel/domains/yakimov-dental.ru/wp-content/themes/dental/assets/js/vendor"));
 };
 
 const jsTask = () => {
@@ -128,7 +138,7 @@ const jsTask = () => {
         )
         .pipe(sourcemaps.write())
         .pipe(plumber.stop())
-        .pipe(gulp.dest("./dist/js"));
+        .pipe(gulp.dest("C:/Program Files/Open_server/OSPanel/domains/yakimov-dental.ru/wp-content/themes/dental/assets/js"));
 };
 
 const cssTask = () => {
@@ -140,7 +150,7 @@ const cssTask = () => {
         .pipe(postcss([autoprefixer({cascade: false})]))
         .pipe(sourcemaps.write())
         .pipe(plumber.stop())
-        .pipe(gulp.dest("./dist/css"));
+        .pipe(gulp.dest("C:/Program Files/Open_server/OSPanel/domains/yakimov-dental.ru/wp-content/themes/dental"));
 };
 
 const reload = done => {
@@ -151,9 +161,9 @@ const reload = done => {
 const watcherTask = () => {
     browserSync.init({
         // server: "./dist",
-        proxy: 'http://ci42086.tmweb.ru/',
+        proxy: 'http://yakimov-dental.ru/',
         notify: false,
-        open: true,
+        open: false,
     });
 
     gulp
@@ -162,26 +172,39 @@ const watcherTask = () => {
     gulp
         .watch("./src/images/**/*", gulp.series(imgTask));
 
-    gulp.watch("./src/scss/**/*.scss", gulp.series(cssTask, updateRemoteCssFiles, reload));
+    gulp.watch("./src/scss/**/*.scss", gulp.series(
+        cssTask,
+        // updateRemoteCssFiles,
+        reload
+    ));
 
     gulp
-        .watch("./src/js/script.js", gulp.series(jsTask, updateRemoteJsFiles, reload));
+        .watch("./src/js/script.js", gulp.series(
+            jsTask,
+            // updateRemoteJsFiles,
+            reload
+        ));
         // .on("change", browserSync.reload);
 
-    gulp
-        .watch("./src/*.html", gulp.series(copyHtml, updateRemoteHtmlFiles, reload));
+    // gulp
+    //     .watch("./src/*.html", gulp.series(
+    //         () => del("./dist/*.html"),
+    //         copyHtml,
+    //         updateRemoteHtmlFiles,
+    //         reload
+    //     ));
 };
 
 exports.default = gulp.series(
     cleanTask,
     gulp.parallel(
-        copyHtml,
+        // copyHtml,
         fontsTask,
         jsVendorTask,
         imgTask,
         cssTask,
         jsTask
     ),
-    deployTask,
+    // deployTask,
     watcherTask
 );
