@@ -6,6 +6,10 @@
     display: none;
 }
 
+.strong-form {
+    width: 100%;
+}
+
 .form-field {
     display: flex;
     flex-direction: column;
@@ -27,7 +31,8 @@
     height: 206px;
 }
 
-#wpmtst_featured_image {
+.field-featured_image .field-wrap {
+    display: contents;
 
 }
 

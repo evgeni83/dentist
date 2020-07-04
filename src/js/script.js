@@ -8,7 +8,7 @@ jQuery(function ($) {
         menuLinks = $(".menu__link"),
         scrollToTopButton = $(".scroll-to-top"),
         firstScreenImage = $(".first-section__content .img-content"),
-        openRequestPopupButtons = $(".first-section__btn, #send-request, .about-section__btn, .slide__btn"),
+        openRequestPopupButtons = $(".first-section__btn, .about-section__btn, .slide__btn"),
         openCommentPopupButtons = $(".comments-section__btn"),
         closePopupButton = $(".popup__close-btn"),
         requestPopup = $(".request-popup"),

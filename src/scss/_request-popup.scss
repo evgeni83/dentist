@@ -76,7 +76,8 @@
         margin: 0 0 25px;
     }
 
-    &-form {
+    &-form,
+    .wpcf7-form {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -133,6 +134,18 @@
     .popup {
         transform: scale(0);
     }
+}
+
+.wpcf7-not-valid-tip {
+    margin-top: -20px;
+    margin-bottom: 20px;
+}
+
+
+div.wpcf7-response-output {
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-bottom: 0;
 }
 
 @media (max-width: 575px) {
